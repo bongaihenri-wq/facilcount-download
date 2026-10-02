@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FacilCount — Téléchargement</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    background: #fff; border-radius: 24px; padding: 40px 30px;
+    max-width: 420px; width: 100%; text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,.3);
+  }
+  .logo { font-size: 40px; margin-bottom: 8px; }
+  h1 { color: #1e3c72; font-size: 28px; margin-bottom: 4px; }
+  .subtitle { color: #888; margin-bottom: 24px; }
+  #qrcode { display: flex; justify-content: center; margin: 20px auto; }
+  #qrcode img, #qrcode canvas { border-radius: 12px; }
+  .btn {
+    display: block; background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: #fff; text-decoration: none; padding: 14px; border-radius: 12px;
+    font-weight: bold; margin: 10px 0; font-size: 16px;
+  }
+  .btn.secondary { background: #f0f0f0; color: #333; }
+  .hint { color: #aaa; font-size: 13px; margin-top: 16px; }
+  .warn { background: #fff8e1; color: #7a5c00; padding: 10px; border-radius: 8px; font-size: 13px; margin-top: 12px; }
+  .ios { color: #555; padding: 12px; background: #f5f5f5; border-radius: 10px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">🏪</div>
+    <h1>FacilCount</h1>
+    <p class="subtitle">Gérez votre commerce facilement</p>
+
+    <div id="qrcode"></div>
+    <p class="hint">📱 Scannez ce QR code avec votre téléphone</p>
+
+    <div id="actions"></div>
+
+    <div class="warn">
+      ⚠️ <strong>Android :</strong> si le téléchargement est bloqué, autorisez
+      « Sources inconnues » dans Paramètres → Sécurité.
+    </div>
+  </div>
+
+<script>
+  // ✅ LIENS EXACTS (release v1.0.0 publiée)
+  const APK_ARM64 = 'https://github.com/bongaihenri-wq/facil_count_nouveau/releases/download/v1.0.0/facilcount-v1.0.0-android-arm64.apk';
+  const APK_V7A   = 'https://github.com/bongaihenri-wq/facil_count_nouveau/releases/download/v1.0.0/facilcount-v1.0.0-android-armv7.apk';
+
+  const ua = navigator.userAgent;
+  const isAndroid = /android/i.test(ua);
+  const isIOS = /iPhone|iPad|iPod/i.test(ua);
+
+  // QR vers cette page (détection auto de l'OS au scan)
+  new QRCode(document.getElementById('qrcode'), {
+    text: window.location.href, width: 200, height: 200,
+    colorDark: '#1e3c72', colorLight: '#ffffff',
+  });
+
+  const actions = document.getElementById('actions');
+
+  if (isAndroid) {
+    actions.innerHTML = `
+      <a class="btn" href="${APK_ARM64}">⬇️ Télécharger FacilCount (Android)</a>
+      <a class="btn secondary" href="${APK_V7A}">Ancien téléphone Android (ARMv7)</a>`;
+  } else if (isIOS) {
+    actions.innerHTML = `
+      <p class="ios">🍎 <strong>Version iOS bientôt disponible.</strong><br>
+      FacilCount fonctionne actuellement sur Android.</p>`;
+  } else {
+    actions.innerHTML = `
+      <p class="hint">Le QR code détecte automatiquement Android / iOS</p>
+      <a class="btn" href="${APK_ARM64}">⬇️ Télécharger l'APK (Android)</a>`;
+  }
+</script>
+</body>
+</html>
