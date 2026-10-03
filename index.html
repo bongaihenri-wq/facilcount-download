@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1E3C72">
 <title>FacilCount — Téléchargement</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
@@ -14,14 +15,13 @@
     padding: 20px;
   }
   .card {
-    background: #fff; border-radius: 24px; padding: 40px 30px;
+    background: #fff; border-radius: 24px; padding: 36px 28px;
     max-width: 420px; width: 100%; text-align: center;
     box-shadow: 0 20px 60px rgba(0,0,0,.3);
   }
-  .logo { font-size: 40px; margin-bottom: 8px; }
-  h1 { color: #1e3c72; font-size: 28px; margin-bottom: 4px; }
-  .subtitle { color: #888; margin-bottom: 24px; }
-  #qrcode { display: flex; justify-content: center; margin: 20px auto; }
+  .card img.brand { width: 190px; max-width: 75%; margin-bottom: 4px; }
+  .subtitle { color: #888; margin-bottom: 20px; font-size: 14px; }
+  #qrcode { display: flex; justify-content: center; margin: 16px auto; }
   #qrcode img, #qrcode canvas { border-radius: 12px; }
   .btn {
     display: block; background: linear-gradient(135deg, #1e3c72, #2a5298);
@@ -30,19 +30,18 @@
   }
   .btn.secondary { background: #f0f0f0; color: #333; }
   .btn.ios { background: #000; }
-  .hint { color: #aaa; font-size: 13px; margin-top: 16px; }
+  .hint { color: #aaa; font-size: 13px; margin-top: 14px; }
   .warn { background: #fff8e1; color: #7a5c00; padding: 10px; border-radius: 8px; font-size: 13px; margin-top: 12px; }
   .steps { text-align: left; background: #f8f9fb; border-radius: 12px; padding: 16px; margin-top: 14px; }
   .steps h3 { font-size: 15px; margin-bottom: 10px; color: #1e3c72; }
   .steps ol { padding-left: 20px; }
   .steps li { font-size: 14px; margin-bottom: 8px; color: #444; }
-  .steps .icon { font-size: 16px; }
 </style>
 </head>
 <body>
   <div class="card">
-    <div class="logo">🏪</div>
-    <h1>FacilCount</h1>
+    <!-- 🆕 LOGO OFFICIEL -->
+    <img class="brand" src="logo_facilcount_vertical.png" alt="FacilCount">
     <p class="subtitle">Gérez votre commerce facilement</p>
 
     <div id="qrcode"></div>
@@ -57,10 +56,9 @@
   </div>
 
 <script>
-  // ✅ LIENS
-  const APK_ARM64 = 'https://github.com/bongaihenri-wq/facil_count_nouveau/releases/download/v1.0.0/facilcount-v1.0.0-android-arm64.apk';
-  const APK_V7A   = 'https://github.com/bongaihenri-wq/facil_count_nouveau/releases/download/v1.0.0/facilcount-v1.0.0-android-armv7.apk';
-  // 🆕 URL de l'app web (PWA iOS) — À REMPLIR après déploiement de l'étape 2
+  // ✅ LIENS v1.0.1 (nouveau logo)
+  const APK_ARM64 = 'https://github.com/bongaihenri-wq/facil_count_nouveau/releases/download/v1.0.1/facilcount-v1.0.1-android-arm64.apk';
+  const APK_V7A   = 'https://github.com/bongaihenri-wq/facil_count_nouveau/releases/download/v1.0.1/facilcount-v1.0.1-android-armv7.apk';
   const PWA_URL   = 'https://bongaihenri-wq.github.io/facilcount-web/';
 
   const ua = navigator.userAgent;
@@ -77,24 +75,21 @@
   if (isAndroid) {
     document.getElementById('androidWarn').style.display = 'block';
     actions.innerHTML = `
-      <a class="btn" href="${APK_ARM64}">⬇️ Télécharger FacilCount (Android)</a>
+      <a class="btn" href="${APK_ARM64}">⬇️ Télécharger FacilCount v1.0.1 (Android)</a>
       <a class="btn secondary" href="${APK_V7A}">Ancien téléphone Android (ARMv7)</a>`;
   } else if (isIOS) {
-    // 🆕 iOS : PWA "Sur l'écran d'accueil" + étapes détaillées
     actions.innerHTML = `
       <a class="btn ios" href="${PWA_URL}">🍎 Ouvrir FacilCount pour iPhone</a>
       <div class="steps">
         <h3>📲 Comment installer sur votre iPhone</h3>
         <ol>
-          <li>Cliquez sur le bouton <strong>noir ci-dessus</strong> pour ouvrir l'app dans <strong>Safari</strong></li>
-          <li>En bas de Safari, touchez l'icône <span class="icon">⎋</span> <strong>Partager</strong> (carré avec flèche)</li>
-          <li>Faites défiler et touchez <strong>« Sur l'écran d'accueil »</strong> <span class="icon">➕</span></li>
-          <li>Confirmez avec <strong>« Ajouter »</strong> en haut à droite</li>
-          <li>✅ L'icône <strong>FacilCount</strong> apparaît sur votre écran d'accueil — touchez-la pour ouvrir l'app à chaque fois</li>
+          <li>Cliquez sur le bouton <strong>noir</strong> pour ouvrir l'app dans <strong>Safari</strong></li>
+          <li>Touchez l'icône <strong>Partager</strong> ⎋ (carré avec flèche vers le haut)</li>
+          <li>Faites défiler → touchez <strong>« Sur l'écran d'accueil »</strong> ➕</li>
+          <li>Confirmez avec <strong>« Ajouter »</strong></li>
+          <li>✅ L'icône <strong>FacilCount</strong> est sur votre écran d'accueil</li>
         </ol>
-        <p style="font-size:12px;color:#999;margin-top:10px">
-          ⚠️ Nécessite une connexion internet. L'icône fonctionne comme une application.
-        </p>
+        <p style="font-size:12px;color:#999;margin-top:10px">⚠️ Nécessite internet. Fonctionne comme une application.</p>
       </div>`;
   } else {
     actions.innerHTML = `
