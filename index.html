@@ -55,9 +55,14 @@
   </div>
 
 <script>
-  // ✅ LIENS UNIVERSELS : toujours valides (plus de 404), pointent vers la dernière release
-  var RELEASES = 'https://github.com/bongaihenri-wq/facil_count_nouveau/releases/latest';
-  var PWA_URL  = 'https://bongaihenri-wq.github.io/facilcount-web/';
+  // 🔢 VERSION ACTUELLE — changez UNIQUEMENT ce chiffre à chaque nouvelle release
+  // (le tag GitHub et les noms de fichiers doivent matcher ce numéro !)
+  var VERSION = 'v1.0.2';
+
+  var BASE = 'https://github.com/bongaihenri-wq/facil_count_nouveau/releases/download/' + VERSION + '/';
+  var APK_ARM64 = BASE + 'facilcount-' + VERSION + '-android-arm64.apk';
+  var APK_V7A   = BASE + 'facilcount-' + VERSION + '-android-armv7.apk';
+  var PWA_URL   = 'https://bongaihenri-wq.github.io/facilcount-web/';
 
   var ua = navigator.userAgent;
   var isAndroid = /android/i.test(ua);
@@ -74,8 +79,8 @@
   if (isAndroid) {
     document.getElementById('androidWarn').style.display = 'block';
     actions.innerHTML =
-      '<a class="btn" href="' + RELEASES + '">⬇️ Télécharger FacilCount (Android)</a>' +
-      '<a class="btn secondary" href="' + RELEASES + '">Voir toutes les versions</a>';
+      '<a class="btn" href="' + APK_ARM64 + '">⬇️ Télécharger FacilCount ' + VERSION + ' (Android)</a>' +
+      '<a class="btn secondary" href="' + APK_V7A + '">Ancien téléphone Android (ARMv7)</a>';
   } else if (isIOS) {
     actions.innerHTML =
       '<a class="btn ios" href="' + PWA_URL + '">🍎 Ouvrir FacilCount pour iPhone</a>' +
@@ -89,7 +94,7 @@
   } else {
     actions.innerHTML =
       '<p class="hint">Le QR code détecte automatiquement Android / iOS</p>' +
-      '<a class="btn" href="' + RELEASES + '">⬇️ Télécharger l\'APK (Android)</a>';
+      '<a class="btn" href="' + APK_ARM64 + '">⬇️ Télécharger l\'APK (Android)</a>';
   }
 </script>
 </body>
